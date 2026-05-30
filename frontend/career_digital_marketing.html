@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing - Career Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #f3eaf3; color: #1e293b; line-height: 1.6; }
+        
+        .navbar {
+            background: white;
+            padding: 16px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .logo { font-size: 24px; font-weight: 800; background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links a { color: #475569; text-decoration: none; margin-left: 30px; font-weight: 500; transition: 0.3s; }
+        .nav-links a:hover { color: #3b82f6; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
+        
+        .hero {
+            background: linear-gradient(135deg, #bc51ea, #8b5cf6);
+            border-radius: 24px;
+            padding: 48px;
+            color: white;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .hero h1 { font-size: 48px; margin-bottom: 16px; }
+        .hero p { font-size: 18px; opacity: 0.95; max-width: 700px; margin: 0 auto; }
+        
+        .info-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 40px; }
+        .info-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .info-card h4 { font-size: 14px; color: #3b82f6; margin-bottom: 8px; text-transform: uppercase; }
+        .info-card p { font-size: 18px; font-weight: 700; color: #1e293b; }
+        
+        .section {
+            background: white;
+            border-radius: 20px;
+            padding: 32px;
+            margin-bottom: 32px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            font-size: 28px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #3b82f6;
+            display: inline-block;
+        }
+        
+        .roadmap-item {
+            margin-bottom: 48px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .roadmap-item:last-child { border-bottom: none; }
+        .step-title { font-size: 24px; font-weight: 700; color: #1e293b; margin-bottom: 12px; }
+        .step-desc { color: #475569; margin-bottom: 20px; }
+        
+        .video-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 16px;
+            padding: 16px 4px;
+            scrollbar-width: thin;
+        }
+        .video-scroll::-webkit-scrollbar { height: 6px; }
+        .video-scroll::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 10px; }
+        .video-scroll::-webkit-scrollbar-thumb { background: #3b82f6; border-radius: 10px; }
+        
+        .video-card {
+            min-width: 300px;
+            width: 300px;
+            background: #f8fafc;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: 0.3s;
+            border: 1px solid #e2e8f0;
+        }
+        .video-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.1); }
+        .video-card iframe { width: 100%; height: 170px; border: none; }
+        .video-card .title { padding: 12px; font-size: 13px; font-weight: 500; color: #1e293b; }
+        
+        .website-list { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+        .website-list a {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #3b82f6;
+            font-size: 13px;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+        .website-list a:hover { background: #3b82f6; color: white; }
+        
+        .quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+        .quick-category h3 { font-size: 20px; margin-bottom: 16px; color: #1e293b; }
+        .badge-link {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: #475569;
+            font-size: 13px;
+            margin: 6px;
+            transition: 0.2s;
+        }
+        .badge-link:hover { background: #3b82f6; color: white; }
+        
+        .btn-group { display: flex; gap: 16px; justify-content: center; margin-top: 32px; }
+        .btn {
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-primary { background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(59,130,246,0.3); }
+        .btn-outline { border: 2px solid #cbd5e1; color: #475569; background: white; }
+        .btn-outline:hover { border-color: #3b82f6; color: #3b82f6; }
+        
+        .chat-fab {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-size: 24px;
+            transition: 0.3s;
+        }
+        .chat-fab:hover { transform: scale(1.1); }
+        
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr 1fr; }
+            .quick-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+            .navbar { padding: 16px 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="logo">Career.ly</div>
+        <div class="nav-links">
+            <a href="/">Home</a>
+            <a href="/admin">Admin</a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="hero">
+            <h1> Digital Marketing / HR / Entrepreneurship</h1>
+            <p>Build your career in marketing, manage people, or start your own business in the digital age.</p>
+        </div>
+
+        <div class="info-grid">
+            <div class="info-card"><h4>💰 Salary</h4><p>₹3L - ₹30L PA</p></div>
+            <div class="info-card"><h4>📈 Demand</h4><p>High | Growing digital economy</p></div>
+            <div class="info-card"><h4>🏢 Top Companies</h4><p>Google, HubSpot, Startups</p></div>
+            <div class="info-card"><h4>🎓 Entry Level</h4><p>Any Graduate + Skills</p></div>
+        </div>
+
+        <div class="section">
+            <h2>📖 About This Career Path</h2>
+            <p style="font-size: 16px; line-height: 1.8;">Digital Marketing is the promotion of brands, products, and services using digital channels like search engines, social media, email, and websites. It's one of the fastest-growing fields with endless opportunities. HR (Human Resources) focuses on recruiting, training, employee relations, and building company culture. Entrepreneurship is about starting and scaling your own business venture, solving real problems, and creating value. These roles focus on business growth, people management, and creating value — offering diverse career paths for creative and ambitious individuals.</p>
+        </div>
+
+        <div class="section">
+            <h2>🛣️ Complete Learning Roadmap</h2>
+            
+            <div class="roadmap-item">
+                <div class="step-title">1. Learn SEO (Search Engine Optimization)</div>
+                <div class="step-desc">Master the art of ranking websites on Google. Learn keyword research, on-page SEO, off-page SEO, and technical SEO.</div>
+                <div class="video-scroll" id="seoVideos"></div>
+                <div class="website-list" id="seoWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">2. Social Media Marketing (SMM)</div>
+                <div class="step-desc">Learn to build brand presence on Instagram, Facebook, LinkedIn, Twitter, and emerging platforms. Create engaging content and run ads.</div>
+                <div class="video-scroll" id="smmVideos"></div>
+                <div class="website-list" id="smmWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">3. Content Creation & Copywriting</div>
+                <div class="step-desc">Create compelling content for blogs, videos, emails, and social media. Master the art of persuasive writing.</div>
+                <div class="video-scroll" id="contentVideos"></div>
+                <div class="website-list" id="contentWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">4. Email Marketing & Automation</div>
+                <div class="step-desc">Learn to build email lists, create campaigns, and automate marketing workflows using tools like Mailchimp and HubSpot.</div>
+                <div class="video-scroll" id="emailVideos"></div>
+                <div class="website-list" id="emailWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">5. Google Ads & PPC</div>
+                <div class="step-desc">Master Google Ads, Facebook Ads, and other paid advertising platforms to drive targeted traffic.</div>
+                <div class="video-scroll" id="adsVideos"></div>
+                <div class="website-list" id="adsWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">6. Analytics & Data Insights</div>
+                <div class="step-desc">Learn to use Google Analytics, track campaign performance, and make data-driven marketing decisions.</div>
+                <div class="video-scroll" id="analyticsVideos"></div>
+                <div class="website-list" id="analyticsWebsites"></div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="step-title">7. Build Portfolio & Freelance/Job Apply</div>
+                <div class="step-desc">Create real projects, build your portfolio, and start applying for jobs or freelancing opportunities.</div>
+                <div class="video-scroll" id="portfolioVideos"></div>
+                <div class="website-list" id="portfolioWebsites"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>⚡ Quick Resources</h2>
+            <div class="quick-grid">
+                <div class="quick-category">
+                    <h3>🌐 Top Websites</h3>
+                    <div id="quickWebsites"></div>
+                </div>
+                <div class="quick-category">
+                    <h3>📺 Top YouTube Channels</h3>
+                    <div id="quickYoutube"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <a href="result.html" class="btn btn-outline">← Back to Results</a>
+            <a href="/" class="btn btn-primary">🏠 Home</a>
+        </div>
+    </div>
+
+    <div class="chat-fab" onclick="window.location.href='/chat'">💬</div>
+
+    <script>
+        const resources = {
+            seo: {
+                videos: [
+                    "https://www.youtube.com/embed/bLUkIgY8MTE",
+                    "https://www.youtube.com/embed/MYE6T_gd7H0",
+                    "https://www.youtube.com/embed/tqL5OOTycMo",
+                    "https://www.youtube.com/embed/XO6MSb9-s1k",
+                ],
+                websites: [
+                    {name: "Moz", link: "https://moz.com/"},
+                    {name: "Ahrefs", link: "https://ahrefs.com/"},
+                    {name: "Google Search Central", link: "https://developers.google.com/search"},
+                    {name: "Backlinko", link: "https://backlinko.com/"}
+                ]
+            },
+            smm: {
+                videos: [
+                    "https://www.youtube.com/embed/CbHrb-ULs4U",
+                    "https://www.youtube.com/embed/FwiDmdYJpcc",
+                    "https://www.youtube.com/embed/0UY-PZB6oGA",
+                    "https://www.youtube.com/embed/HyD0v9L30gM",
+                ],
+                websites: [
+                    {name: "HubSpot Academy", link: "https://academy.hubspot.com/"},
+                    {name: "Social Media Examiner", link: "https://www.socialmediaexaminer.com/"},
+                    {name: "Buffer", link: "https://buffer.com/"},
+                    {name: "Later", link: "https://later.com/"}
+                ]
+            },
+            content: {
+                videos: [
+                    "https://www.youtube.com/embed/AeTYpSDIT4Q",
+                    "https://www.youtube.com/embed/vOo34AcUNlw",
+                    "https://www.youtube.com/embed/7EgZKQ1jM20",
+                    "https://www.youtube.com/embed/WC9LTbAEJUc",
+                ],
+                websites: [
+                    {name: "Canva", link: "https://www.canva.com/"},
+                    {name: "Grammarly", link: "https://www.grammarly.com/"},
+                    {name: "WordPress", link: "https://wordpress.com/"},
+                    {name: "Copyblogger", link: "https://copyblogger.com/"}
+                ]
+            },
+            email: {
+                videos: [
+                    "https://www.youtube.com/embed/2NMESLYd-sc",
+                    "https://www.youtube.com/watch?v=tCL1Xuo06qw",
+                    "https://www.youtube.com/embed/cxk7otDsSKQ",
+                    "https://www.youtube.com/embed/J0CEiuOfON0",
+                ],
+                websites: [
+                    {name: "Mailchimp", link: "https://mailchimp.com/"},
+                    {name: "HubSpot Email Marketing", link: "https://www.hubspot.com/products/marketing/email"},
+                    {name: "ConvertKit", link: "https://convertkit.com/"}
+                ]
+            },
+            ads: {
+                videos: [
+                    "https://www.youtube.com/embed/vqVdw5n9HLc",
+                    "https://www.youtube.com/embed/f7j3JSBD6so",
+                    "https://www.youtube.com/embed/vNc4DRz6uO8",
+                    "https://www.youtube.com/embed/autzRHtt-RM",
+                ],
+                websites: [
+                    {name: "Google Ads", link: "https://ads.google.com/"},
+                    {name: "Facebook Ads", link: "https://www.facebook.com/business/ads"},
+                    {name: "LinkedIn Ads", link: "https://business.linkedin.com/marketing-solutions/ads"}
+                ]
+            },
+            analytics: {
+                videos: [
+                    "https://www.youtube.com/embed/eg4I-RU_vKU",
+                    "https://www.youtube.com/watch?v=Osk_tasL1zA",
+                    "https://www.youtube.com/embed/-fyIc1JJt0c",
+                    "https://www.youtube.com/embed/ErOLWks6BRs",
+                ],
+                websites: [
+                    {name: "Google Analytics", link: "https://analytics.google.com/"},
+                    {name: "Google Data Studio", link: "https://datastudio.google.com/"},
+                    {name: "SEMrush", link: "https://www.semrush.com/"}
+                ]
+            },
+            portfolio: {
+                videos: [
+                    "https://www.youtube.com/embed/ErOLWks6BRs",
+                    "https://www.youtube.com/embed/bGzf_4cZBIg",
+                    "https://www.youtube.com/embed/pFptwahKRsM",
+                    "https://www.youtube.com/embed/Q-omi1Cigy0",
+                ],
+                websites: [
+                    {name: "LinkedIn", link: "https://www.linkedin.com/"},
+                    {name: "Upwork", link: "https://www.upwork.com/"},
+                    {name: "Fiverr", link: "https://www.fiverr.com/"},
+                    {name: "Internshala", link: "https://internshala.com/"}
+                ]
+            },
+            quickWebsites: [
+                {name: "HubSpot", link: "https://www.hubspot.com/"},
+                {name: "Google Digital Garage", link: "https://learndigital.withgoogle.com/"},
+                {name: "Neil Patel Blog", link: "https://neilpatel.com/"},
+                {name: "Moz", link: "https://moz.com/"},
+                {name: "Canva", link: "https://www.canva.com/"}
+            ],
+            quickYoutube: [
+                {name: "Neil Patel", link: "https://www.youtube.com/@neilpatel"},
+                {name: "GaryVee", link: "https://www.youtube.com/@GaryVee"},
+                {name: "HubSpot", link: "https://www.youtube.com/@HubSpot"},
+                {name: "Ahrefs", link: "https://www.youtube.com/@Ahrefs"},
+                {name: "Moz", link: "https://www.youtube.com/@Moz"}
+            ]
+        };
+
+        function loadVideos(containerId, videoUrls) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = "";
+            
+            videoUrls.forEach(videoUrl => {
+                let videoId = videoUrl;
+                if (videoUrl.includes("youtube.com/embed/")) {
+                    videoId = videoUrl.split("/embed/")[1].split("?")[0];
+                } else if (videoUrl.includes("watch?v=")) {
+                    videoId = videoUrl.split("watch?v=")[1].split("&")[0];
+                }
+                
+                const card = document.createElement("div");
+                card.className = "video-card";
+                card.innerHTML = `
+                    <iframe 
+                        src="https://www.youtube-nocookie.com/embed/${videoId}"
+                        width="100%" 
+                        height="180" 
+                        frameborder="0"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowfullscreen>
+                    </iframe>
+                    <div class="title">Watch Video</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function loadWebsites(containerId, websites) {
+            const container = document.getElementById(containerId);
+            if (!container) return;
+            container.innerHTML = "";
+            websites.forEach(site => {
+                const link = document.createElement("a");
+                link.href = site.link;
+                link.target = "_blank";
+                link.textContent = site.name;
+                container.appendChild(link);
+            });
+        }
+
+        function loadQuickLinks() {
+            const webContainer = document.getElementById("quickWebsites");
+            if (webContainer) {
+                webContainer.innerHTML = "";
+                resources.quickWebsites.forEach(site => {
+                    const link = document.createElement("a");
+                    link.className = "badge-link";
+                    link.href = site.link;
+                    link.target = "_blank";
+                    link.textContent = site.name;
+                    webContainer.appendChild(link);
+                });
+            }
+            
+            const ytContainer = document.getElementById("quickYoutube");
+            if (ytContainer) {
+                ytContainer.innerHTML = "";
+                resources.quickYoutube.forEach(channel => {
+                    const link = document.createElement("a");
+                    link.className = "badge-link";
+                    link.href = channel.link;
+                    link.target = "_blank";
+                    link.textContent = channel.name;
+                    ytContainer.appendChild(link);
+                });
+            }
+        }
+
+        // Function calls
+        loadVideos("seoVideos", resources.seo.videos);
+        loadWebsites("seoWebsites", resources.seo.websites);
+        loadVideos("smmVideos", resources.smm.videos);
+        loadWebsites("smmWebsites", resources.smm.websites);
+        loadVideos("contentVideos", resources.content.videos);
+        loadWebsites("contentWebsites", resources.content.websites);
+        loadVideos("emailVideos", resources.email.videos);
+        loadWebsites("emailWebsites", resources.email.websites);
+        loadVideos("adsVideos", resources.ads.videos);
+        loadWebsites("adsWebsites", resources.ads.websites);
+        loadVideos("analyticsVideos", resources.analytics.videos);
+        loadWebsites("analyticsWebsites", resources.analytics.websites);
+        loadVideos("portfolioVideos", resources.portfolio.videos);
+        loadWebsites("portfolioWebsites", resources.portfolio.websites);
+        loadQuickLinks();
+    </script>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Cache Control</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, #ffd60a, #ff4b2b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #a0a0a0;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .card h2 {
+            margin-bottom: 20px;
+            color: #ffd60a;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+        
+        .btn-danger {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+        }
+        
+        .btn-danger:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(255, 75, 43, 0.5);
+        }
+        
+        .btn-info {
+            background: linear-gradient(45deg, #06b6d4, #3b82f6);
+            color: white;
+        }
+        
+        .btn-info:hover {
+            transform: scale(1.05);
+        }
+        
+        .career-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .career-btn {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+        }
+        
+        .career-btn:hover {
+            background: rgba(255, 214, 10, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .status-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .status-table th, .status-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .status-table th {
+            background: rgba(255, 214, 10, 0.2);
+            color: #ffd60a;
+        }
+        
+        .message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            border-radius: 10px;
+            background: #00c853;
+            color: white;
+            animation: slideIn 0.3s ease;
+            z-index: 1000;
+        }
+        
+        .message.error {
+            background: #ff416c;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+        
+        .badge-success {
+            background: #00c853;
+        }
+        
+        .badge-warning {
+            background: #ff9800;
+        }
+        
+        .stats {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            flex: 1;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ffd60a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1> Admin Panel</h1>
+        <div class="subtitle">Cache Control & Management</div>
+        
+        <div class="card">
+            <h2> Cache Statistics</h2>
+            <div class="stats" id="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="cacheSize">0</div>
+                    <div>Cached Careers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="cacheDuration">24</div>
+                    <div>Cache Duration (Hours)</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2> Global Actions</h2>
+            <div class="btn-group">
+                <button class="btn btn-danger" onclick="refreshAllCache()">
+                    Clear ALL Cache
+                </button>
+                <button class="btn btn-info" onclick="loadCacheStatus()">
+                     Refresh Status
+                </button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2> Clear Specific Career Cache</h2>
+            <div class="career-grid" id="careerList"></div>
+        </div>
+        
+        <div class="card">
+            <h2> Current Cache Status</h2>
+            <div id="cacheStatus">
+                <table class="status-table">
+                    <thead>
+                        <tr><th>Career</th><th>Age (Hours)</th><th>Expires In</th><th>Videos</th><th>Action</th></tr>
+                    </thead>
+                    <tbody id="cacheTableBody">
+                        <tr><td colspan="5">Loading...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const careers = [
+            "AI Engineer / Software Developer",
+            "Product Manager / Business Analyst",
+            "Government / PSU / Administrative Roles",
+            "UI/UX Designer / Creative Technologist",
+            "Digital Marketing / HR / Entrepreneurship"
+        ];
+        
+        function loadCareerButtons() {
+            const container = document.getElementById("careerList");
+            container.innerHTML = "";
+            
+            careers.forEach(career => {
+                const btn = document.createElement("button");
+                btn.className = "career-btn";
+                btn.innerText = career.length > 30 ? career.substring(0, 27) + "..." : career;
+                btn.title = career;
+                btn.onclick = () => refreshCareerCache(career);
+                container.appendChild(btn);
+            });
+        }
+        
+        function showMessage(msg, isError = false) {
+            const messageDiv = document.createElement("div");
+            messageDiv.className = "message" + (isError ? " error" : "");
+            messageDiv.innerText = msg;
+            document.body.appendChild(messageDiv);
+            setTimeout(() => messageDiv.remove(), 3000);
+        }
+        
+        async function refreshAllCache() {
+            if (!confirm(" Are you sure? This will clear ALL cached videos for all careers!")) return;
+            
+            try {
+                let res = await fetch("http://127.0.0.1:5000/admin/refresh-cache", { method: "POST" });
+                let data = await res.json();
+                if (data.success) {
+                    showMessage("Success: " + data.message);
+                    loadCacheStatus();
+                } else {
+                    showMessage(" Failed: " + data.message, true);
+                }
+            } catch (error) {
+                showMessage(" Error: " + error.message, true);
+            }
+        }
+        
+        async function refreshCareerCache(career) {
+            if (!confirm(` Clear cache for "${career}"? Next request will fetch fresh videos.`)) return;
+            
+            try {
+                let res = await fetch(`http://127.0.0.1:5000/admin/refresh-cache/${encodeURIComponent(career)}`, { method: "POST" });
+                let data = await res.json();
+                if (data.success) {
+                    showMessage("Success: " + data.message);
+                    loadCacheStatus();
+                } else {
+                    showMessage("Error:" + data.message, true);
+                }
+            } catch (error) {
+                showMessage(" Error: " + error.message, true);
+            }
+        }
+        
+        async function loadCacheStatus() {
+            try {
+                let res = await fetch("http://127.0.0.1:5000/admin/cache-status");
+                let data = await res.json();
+                
+                document.getElementById("cacheSize").innerText = data.cache_size;
+                document.getElementById("cacheDuration").innerText = data.cache_duration_hours;
+                
+                const tbody = document.getElementById("cacheTableBody");
+                tbody.innerHTML = "";
+                
+                if (data.cache_size === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5">No cached data found. Users need to search first!</td></tr>';
+                } else {
+                    for (const [career, info] of Object.entries(data.items)) {
+                        const row = tbody.insertRow();
+                        row.insertCell(0).innerText = career.length > 40 ? career.substring(0, 37) + "..." : career;
+                        row.insertCell(1).innerText = info.age_hours + " hrs";
+                        row.insertCell(2).innerHTML = info.expires_in_hours > 0 ? 
+                            `<span class="badge badge-success">${info.expires_in_hours} hrs</span>` : 
+                            `<span class="badge badge-warning">Expired</span>`;
+                        row.insertCell(3).innerText = info.videos_count;
+                        
+                        const actionCell = row.insertCell(4);
+                        const clearBtn = document.createElement("button");
+                        clearBtn.innerText = "Clear";
+                        clearBtn.style.background = "#ff416c";
+                        clearBtn.style.border = "none";
+                        clearBtn.style.padding = "5px 10px";
+                        clearBtn.style.borderRadius = "5px";
+                        clearBtn.style.cursor = "pointer";
+                        clearBtn.style.color = "white";
+                        clearBtn.onclick = () => refreshCareerCache(career);
+                        actionCell.appendChild(clearBtn);
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading cache status:", error);
+                document.getElementById("cacheTableBody").innerHTML = '<tr><td colspan="5">Error loading cache status</td></tr>';
+            }
+        }
+        
+        loadCareerButtons();
+        loadCacheStatus();
+        setInterval(loadCacheStatus, 10000);
+    </script>
+</body>
+</html>
